@@ -2,6 +2,7 @@
 
 require 'php/connection.php';
 
+
 if(!empty($_SESSION["uname"]) && !empty($_SESSION["role"])){
     if (isset($_GET['id'])){
         $id = $_GET['id'];
@@ -41,76 +42,227 @@ if(isset($_POST['submit'])){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #e6e6e6; /* Background color */
-        }
-    </style>
-
 </head>
 <body>
     
 <section class="section1">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-0">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="images/logo.png" width="80" height="80" alt="">
-            </a>
-            <a class="btn btn-warning" href="boardinghouse.php">Back</a>
+        <nav>
+            <img src="images/logo.png" width="80" height="80" alt="">
+            <ul>
+                <li><a href="">Home</a></li>
+                <li><a href="">About us</a></li>
+                <li><a href="">Contact</a></li>
+            </ul>
+            <a class="btn" href="boardinghouse.php"><button>Back</button></a>
+        </nav>
+
+        <div class="breaker"></div>
+
+        <div class="bookingform">
+            <form class="form" method="post">
+                <div class="roominfo">   
+                    <p>The Selected room is Room <?php echo $fetch['room-no']; ?></p>
+                    <img src="<?php echo $fetch['image'];?>" height="200" width="200" alt="">
+                    <p>Price: <?php echo $fetch['price']?></p>
+                    <p>Amenities: <?php echo $fetch['amenities']?></p>
+                </div>
+             
+                <p>enjoy and have fun!</p>
+                <div class="flex">
+                    <label>
+                        <span>Firstname</span>
+                        <input placeholder="" type="text" name="fname" class="input">
+                    </label>
+            
+                    <label>
+                        <span>Lastname</span>
+                        <input placeholder="" type="text" name="lname" class="input"> 
+                    </label>
+                </div>
+            
+                <label>
+                    <span>Email</span>
+                    <input placeholder="" type="email" name="email" class="input">
+                </label>
+
+                <label>
+                    <span>Date</span>
+                    <input placeholder="" type="date" name="datein" class="input">
+                </label>
+            
+                <label>
+                    <span>additional request about the room you have picked </span>
+                    <input placeholder="" type="text" name="addons" class="input">
+                </label>
+                <div><a href="boardinghouse.php"><button name='submit' class="submit">Submit</button></a></div>
+                <p class="signin">your information will be monitored and safe after
+                    pressing submit button.
+                </p>
+            </form>
+        </div> 
+
+        <div class="breaker"></div>
+
+        <div class="footer">
+            <p>Copyright ©2024 All rights reserved | This template is made with by BHRM Devs</p>
         </div>
-    </nav>
 
-    <div class="container mt-5">
-    <div class="row justify-content-center">
-    <div class="col-md-6">
-        <div class="card" style="background-color: #a9a9a9;">
-            <div class="card-body">
-                <h5 class="card-title">Selected Room: <?php echo $fetch['room-no']; ?></h5>
-                <img src="<?php echo $fetch['image'];?>" class="img-fluid mb-3" alt="">
-                <p class="card-text">Price: <?php echo $fetch['price']?></p>
-                <p class="card-text">Amenities: <?php echo $fetch['amenities']?></p>
-            </div>
-        </div>
-    </div>
-</div>
+    </section>
 
 
-<div class="row justify-content-center mt-5">
-    <div class="col-md-6">
-        <form method="post">
-            <div class="mb-3" >
-                <label for="fname" class="form-label">First Name</label>
-                <input type="text" class="form-control" id="fname" name="fname">
-            </div>
-            <div class="mb-3">
-                <label for="lname" class="form-label">Last Name</label>
-                <input type="text" class="form-control" id="lname" name="lname">
-            </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="email">
-            </div>
-            <div class="mb-3">
-                <label for="datein" class="form-label">Date</label>
-                <input type="date" class="form-control" id="datein" name="datein">
-            </div>
-            <div class="mb-3">
-                <label for="addons" class="form-label">Additional Requests</label>
-                <input type="text" class="form-control" id="addons" name="addons">
-            </div>
-            <button type="submit" class="btn btn-warning" name="submit">Submit</button>
-        </form>
-    </div>
-</div>
 
-    </div>
-    
-   
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            font-family: sans-serif;
 
-</section>
+        }
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        a {
+            color: white;
+            cursor: pointer;
+        }
+
+        .section1 {
+            height: 100vh;
+            background-image: url(images/pxfuel.jpg);
+            background-size: cover;
+        }
+
+        .breaker {
+            height: 35px;
+        }.section1 > :nth-child(2 of .breaker){
+            height: 70px;
+        }
+
+        nav {
+            height: 70px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background-color: black;
+        }
+
+        nav .btn {
+            place-content: center;
+            cursor: pointer;
+            
+        }
+
+        nav button {
+            background-color: rgb(21, 157, 219);
+            color: white;
+            border: none;
+            padding: 15px;
+            text-align: center;
+            border-radius: 20px;
+            width: 100px;
+        }
+
+        ul {
+            display: flex;
+            padding: 20px;
+            justify-content: center;
+        }
+
+        li {
+            padding-left: 30px;
+            list-style: none;
+            font-size: 24px;
+        }
+
+        li:first-child {
+            padding-left: 0;
+        }
+
+        .footer {
+            place-content: center;
+            text-align: center;
+            height: 35px;
+            background-color: black;
+            color: white;
+
+        }
+
+        .bookingform {
+            height: 800px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .roominfo{
+            display: flex;
+            flex-direction: column;
+        }.roominfo img{
+            margin: 10px auto 10px auto;
+        }.roominfo p{
+            padding: 5px 0 5px 0;
+        }
+
+        .form {
+            border: 1px solid black;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 550px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 20px;
+            position: relative;
+        }
+
+        form p{
+            letter-spacing: -1px;
+            text-align: center;
+        }
+
+        .signin {
+            text-align: center;
+        }
+
+        .signin a {
+            color: royalblue;
+        }
+
+        .flex {
+            display: flex;
+            width: 100%;
+            gap: 6px;
+        }
+
+        .form label {
+            position: relative;
+        }
+
+        .form label .input {
+            width: 100%;
+            padding: 10px 10px 20px 10px;
+            outline: 0;
+            border: 1px solid rgba(105, 105, 105, 0.397);
+            border-radius: 10px;
+            font-size: 24px;
+        }
+
+        .submit {
+            border: none;
+            outline: none;
+            background-color: royalblue;
+            padding: 10px;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 16px;
+            transform: .3s ease;
+            width: 150px;
+        }
+
+        .submit:hover {
+            background-color: rgb(56, 90, 194);
+        }
 </body>
 </html>
+        
+        

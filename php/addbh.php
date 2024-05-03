@@ -1,13 +1,14 @@
 <?php
+
 require 'connection.php';
 
-if (!empty($_SESSION["uname"]) && !empty($_SESSION["role"])) {
+if(!empty($_SESSION["uname"]) && !empty($_SESSION["role"])){
     echo '';
-} else {
+}else{
     header("location: ../index.php");
 }
 
-if (isset($_POST['submit'])) {
+if(isset($_POST['submit'])){
     $owner = $_POST['owner'];
     $hname = $_POST['hname'];
     $haddress = $_POST['haddress'];
@@ -24,90 +25,111 @@ if (isset($_POST['submit'])) {
     $fileactualext = strtolower(end($fileExt));
     $allowed = array('jpg', 'jpeg', 'png', 'pdf');
 
-    if (in_array($fileactualext, $allowed)) {
-        if ($fileError === 0) {
-            if ($fileSize < 1000000) {
+    if(in_array($fileactualext, $allowed)){
+        if($fileError === 0){
+            if($fileSize < 1000000){
                 $fileNameNew = $fileName;
-                $fileDestination = '../images/' . $fileNameNew;
-                if ($fileNameNew > 0) {
+                $fileDestination = '../images/'.$fileNameNew;
+                if($fileNameNew > 0){
                     move_uploaded_file($fileTmpName, $fileDestination);
                 }
-            } else {
+                
+            }else{
                 echo "your file is too big.";
             }
         }
-    } else {
+    }else{
         echo "you cannot upload this type of file";
     }
-
+   
     $query = "INSERT INTO `boardinghouses` (`id`, `owner`, `hname`, `haddress`, `image`) VALUES ('','$owner','$hname','$haddress','images/$fileNameNew')";
     mysqli_query($conn, $query);
 
     header("location: ../index.php");
 }
+
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Boarding House</title>
-    <link rel="icon" type="image/x-icon" href="logo.png">
-    <link rel="stylesheet" href="register.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <form action="" method="post" enctype="multipart/form-data">
+            <h2>Add boarding House</h2><br>
+            <label for=""> House Owner: </label>
+            <input type="text" name="owner"  placeholder="enter here.."><br><br>
+            <label for=""> House Name: </label>
+            <input type="text" name="hname"  placeholder="enter here.."><br><br>
+            <label for=""> House Address: </label>
+            <input type="text" name="haddress"  placeholder="enter here.."><br><br>
+            <label for=""> Image: </label>
+            <input type="file" name="image" placeholder="enter here.."><br><br>
+            
+            <input type="submit" name="submit" value="Submit">
+
+            <a href="../index.php">Back</a>
+        </form>
+    </div>
+
     <style>
-        body {
-            background-color: #e6e6e6; /* Background color */
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+            text-decoration: none;
+        }
+
+        .container{
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+            
+        }
+
+        form{
+            border: 1px solid black;
+            background-color: rgb(221, 221, 221);
+            border-radius: 5px; 
+            padding: 20px;
+            box-shadow: 10px 10px 1px rgba(0, 0, 0, 0.1); 
+            font-size: 20px;
+        }form h2{
+            text-align: center;
+        }form a{
+            color: black;
+        }input[type=text]{
+            width: 200px;
+            padding: 10px;
+            border: 1px solid #ccc; 
+            border-radius: 5px; 
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); 
+            font-size: 16px; 
+        }input[type=password]{
+            width: 200px;
+            padding: 10px;
+            border: 1px solid #ccc; 
+            border-radius: 5px; 
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); 
+            font-size: 16px; 
+        }input[type=submit]{
+            background-color: rgb(52, 133, 255);
+            padding: 10px;
+            color: white;
+            border: 1px solid #ccc; 
+            border-radius: 5px; 
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); 
+            font-size: 16px; 
+            
         }
     </style>
 
-</head>
 <body>
-    <div class="container-fluid">
-        <div class="row" style="padding-top: 5%;">
-            <div class="col-md-4"></div>
-            <div class="col-md-4" style="text-align: center; background-color: #a9a9a9; border-radius: 20px; padding: 10px;">
-                <div class="row">
-                    <div class="col-md-12" style="padding-bottom: 15px;">
-                        <img src="../images/logo.png" height="100px">
-                    </div>
-                    <div class="col-md-12">
-                        <span style="font-weight: 100; font-size: 17px;">Add Boarding House</span>
-                    </div>
-                    <div class="col-md-12">
-                        <form method="post" enctype="multipart/form-data">
-                            <div class="row">
-                                <div class="col-md-12" style="text-align: left; font-size: 14px; font-weight: 200; padding: 10px 20px 10px 20px;">
-                                    <label>House Owner</label>
-                                    <input type="text" name="owner" placeholder="Enter here.." class="form-control" required>
-                                </div>
-                                <div class="col-md-12" style="text-align: left; font-size: 14px; font-weight: 200; padding: 10px 20px 10px 20px;">
-                                    <label>House Name</label>
-                                    <input type="text" name="hname" placeholder="Enter here.." class="form-control" required>
-                                </div>
-                                <div class="col-md-12" style="text-align: left; font-size: 14px; font-weight: 200; padding: 10px 20px 10px 20px;">
-                                    <label>House Address</label>
-                                    <input type="text" name="haddress" placeholder="Enter here.." class="form-control" required>
-                                </div>
-                                <div class="col-md-12" style="text-align: left; font-size: 14px; font-weight: 200; padding: 10px 20px 10px 20px;">
-                                    <label>Image</label>
-                                    <input type="file" name="image" placeholder="Enter here.." class="form-control" required>
-                                </div>
-                                
-                                <div class="col-md-12" style="text-align: center; font-size: 14px; font-weight: 200; padding: 10px 20px 10px 20px;">
-                                    <button type="submit" name="submit" class="btn btn-warning">Submit</button>
-                                </div>
-                                <div class="col-md-12" style="text-align: center; font-size: 13px; font-weight: 100;">
-                                    <a href="../index.php" style="text-decoration: none; color: black;">Back</a>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4"></div>
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.
+</html>

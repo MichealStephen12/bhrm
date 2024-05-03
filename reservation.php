@@ -17,7 +17,7 @@ if(!empty($_SESSION["uname"]) && !empty($_SESSION["role"])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RESERVATION</title>
+    <title>Document</title>
 </head>
 <body>
     <section>
