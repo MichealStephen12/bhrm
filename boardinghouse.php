@@ -90,16 +90,19 @@ if(!empty($_SESSION["uname"]) && !empty($_SESSION["role"])){
                     <a class="nav-link" href="#">Home</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="#">Rooms</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="#">About</a>
                 </li>
                 <?php  
                     if (!empty($_SESSION["uname"]) && !empty($_SESSION["role"]) && $_SESSION['role'] == 'landlord'){
                         echo '<li class="nav-item"><a class="nav-link" href="reservation.php">View Reservation</a></li>';
-                        echo '<li class="nav-item"><a class="btn btn-warning" href="php/logout.php">Logout</a></li>';
-                    }else{
-                        echo '<a class="btn btn-warning" href="index.php">Back</a>';
                     }
                 ?>
+                <li class="nav-item">
+                    <a class="btn btn-warning" href="index.php">Back</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -128,7 +131,7 @@ if(!empty($_SESSION["uname"]) && !empty($_SESSION["role"])){
             <h2>Rooms</h2>
             <?php 
             if(!empty($_SESSION["uname"]) && !empty($_SESSION["role"]) && $_SESSION["role"] == "landlord"){
-                echo "<div class='addroom' style='margin-bottom: 20px;'><a href='php/addroom.php'><button class='btn btn-warning'>Add Rooms</button></a></div>"; 
+                echo "<div class='addroom'><a href='php/addroom.php'><button class='btn btn-success'>Add Rooms</button></a></div>";
             }
             ?>
             <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -147,13 +150,12 @@ if(!empty($_SESSION["uname"]) && !empty($_SESSION["role"])){
                             <h5 class="card-title">Room No: <?php echo $fetch['room-no']?></h5>
                             <p class="card-text">Price: <?php echo $fetch['price']?></p>
                             <p class="card-text">Amenities: <?php echo $fetch['amenities']?></p>
-                            <p class="card-text">Status: <?php echo $fetch['status']?></p>
                             <?php if(!empty($_SESSION["uname"]) && !empty($_SESSION["role"] && $_SESSION["role"] == "landlord")):
                             ?>
-                                <a href='php/addroom.php?rupdate=<?php echo $id;?>' class='btn btn-warning'>Update</a>
-                                <a href='php/function.php?rdelete=<?php echo $id;?>' class='btn btn-danger'>Delete</a>
+                            <a href='php/addroom.php?rupdate=<?php echo $id;?>' class='btn btn-primary'>Update</a>
+                            <a href='php/function.php?rdelete=<?php echo $id;?>' class='btn btn-danger'>Delete</a>
                             <?php  else: ?>
-                                <a href='book-in.php?id=<?php echo $id;?>' class='btn btn-warning'>Book Now!</a>
+                            <a href='book-in.php?id=<?php echo $id;?>' class='btn btn-warning'>Book Now!</a>
                             <?php endif; ?>
                         </div>
                     </div>

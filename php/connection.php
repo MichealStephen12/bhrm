@@ -5,7 +5,7 @@ session_start();
 $host = "localhost"; // e.g., "localhost" or database IP
 $username = "root"; // your database username
 $pass = ""; // your database password
-$database = "bhrm"; // your database name
+$database = "test1"; // your database name
 
 // Create a database connection
 $conn = mysqli_connect($host, $username, $pass, $database);

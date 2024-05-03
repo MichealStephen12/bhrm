@@ -1,11 +1,11 @@
 <?php require 'php/connection.php';
 
-if (!empty($_SESSION["uname"]) && !empty($_SESSION["role"])) {
+if(!empty($_SESSION["uname"]) && !empty($_SESSION["role"])){
     $uname = $_SESSION["uname"];
     $role = $_SESSION["role"];
     $result = mysqli_query($conn, "select * from users where uname = '$uname'");
     $fetch = mysqli_fetch_assoc($result);
-} else {
+}else{
     echo '';
 }
 
@@ -14,131 +14,122 @@ if (!empty($_SESSION["uname"]) && !empty($_SESSION["role"])) {
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RESERVATION</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-    <style>
-        .navbar {
-            background-color: #a9a9a9;
-            border-spacing: 10%;
-        }
-
-        .navbar-brand img {
-            width: 80px;
-            height: 80px;
-        }
-
-        .nav-link {
-            color: #fff !important;
-        }
-
-        .content {
-            padding-top: 100px;
-            display: flex;
-            justify-content: center;
-        }
-    </style>
 </head>
-
 <body>
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-0">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-            <img src="images/logo.png" width="80" height="80" alt="">
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Rooms</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
-                </li>
-                <?php  
-                    if (!empty($_SESSION["uname"]) && !empty($_SESSION["role"]) && $_SESSION['role'] == 'landlord'){
-                        echo '<li class="nav-item"><a class="nav-link" href="reservation.php">View Reservation</a></li>';
-                    }
-                ?>
-                <li class="nav-item">
-                    <a class="btn btn-warning" href="boardinghouse.php">Back</a>
-                </li>
+    <section>
+        <nav>
+            <ul>
+                <li><a href="">Home</a></li>
+                <li><a href="boardinghouse.php">Back</a></li>
             </ul>
-        </div>
-    </div>
-</nav>
+        </nav>
 
-
-    <section> 
         <div class="content">
-            <table class="table table-bordered table-striped text-center">
-                <thead>
-                    <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Email</th>
-                        <th>Date in</th>
-                        <th>Add ons</th>
-                        <th>Amenities</th>
-                        <th>Price</th>
-                        <th>Image</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    if (empty($_SESSION) || $_SESSION['role'] == 'user' || $_SESSION['role'] == 'admin' || $_SESSION['role'] == 'landlord') {
-                        $query = "select * from reservation";
-                        $result = mysqli_query($conn, $query);
-                        while ($fetch = mysqli_fetch_assoc($result)) {
-                            $id = $fetch['id'];
-                    ?>
-                            <tr>
-                                <td><?php echo $fetch['fname'] ?></td>
-                                <td><?php echo $fetch['lname'] ?></td>
-                                <td><?php echo $fetch['email'] ?></td>
-                                <td><?php echo $fetch['date_in'] ?></td>
-                                <td><?php echo $fetch['addons'] ?></td>
-                                <td><?php echo $fetch['amenities'] ?></td>
-                                <td><?php echo $fetch['price'] ?></td>
-                                <td><?php echo $fetch['image'] ?></td>
-                                <td><?php echo $fetch['status'] ?></td>
-                                <td>
-                                    <a href="#"><button class="btn btn-warning">Update</button></a>
-                                    <a href="#"><button class="btn btn-danger">Delete</button></a>
-                                </td>
-                            </tr>
-                    <?php
-                        }
-                    }
-                    ?>
-                </tbody>
-            </table>
+            <table>
+                <tr>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Email</th>
+                  <th>Date in</th>
+                  <th>Add ons</th>
+                  <th>Amenities</th>
+                  <th>Price</th>
+                  <th>Image</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+        
+        <?php
+            if(empty($_SESSION) || $_SESSION['role'] == 'user' || $_SESSION['role'] == 'admin' || $_SESSION['role'] == 'landlord'){
+                $query = "select * from reservation";
+                $result = mysqli_query($conn, $query);
+                while ($fetch = mysqli_fetch_assoc($result)){
+                $id = $fetch['id'];
+            ?>
+                <tr>
+                    <td><?php echo $fetch['fname']?></td>
+                    <td><?php echo $fetch['lname']?></td>
+                    <td><?php echo $fetch['email']?></td>
+                    <td><?php echo $fetch['date_in']?></td>
+                    <td><?php echo $fetch['addons']?></td>
+                    <td><?php echo $fetch['amenities']?></td>
+                    <td><?php echo $fetch['price']?></td>
+                    <td><?php echo $fetch['image']?></td>
+                    <td><?php echo $fetch['status']?></td>
+                    <td>
+                        <a href=""><button>Update</button></a>
+                        <a href=""><button>Delete</button></a>
+                    </td>
+                </tr>
+        <?php  }}?>
+              </table>
         </div>
 
     </section>
 
     <style>
-        .content {
-            padding-top: 100px;
-            padding-left: 10%;
-            padding-right: 10%;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            font-family: sans-serif;
+        }
+
+        a {
+            color: rgb(255, 255, 255);
+            cursor: pointer;
+        }
+
+        nav{
+            position: fixed;
+            padding: 20px;
+            width: 200px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: black;
+        }ul{
+            padding-top: 40px;
+        }li{
+            text-align: center;
+            list-style: none;
+            font-size: 20px;
+            border: none;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 20px 0px 0px 0px;
+            background-color: rgb(12, 131, 211);
+        }li:first-child{
+            margin: 0 0px 0px 0px;
+        }
+        li:last-child{
+            margin: 600px 0px 0px 0px;
+        }
+
+        .content{
+            padding-top: 300px;
             display: flex;
             justify-content: center;
+           
+        }
+        table{
+            border: 1px solid black;
+            border-collapse: collapse;
+        }th{
+            padding: 0px 10px 0px 10px;
+        }td{
+            text-align: center;
+        }table, td, th{
+            border: 1px solid;
+        }th, td{
+            padding: 20px;
         }
     </style>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

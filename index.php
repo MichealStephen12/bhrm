@@ -118,6 +118,9 @@ if (!empty($_SESSION["uname"]) && !empty($_SESSION["role"])) {
                     <a class="nav-link" href="#">About Us</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="#">Blog</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="#">Contact</a>
                 </li>
                 <?php
@@ -143,7 +146,7 @@ if (!empty($_SESSION["uname"]) && !empty($_SESSION["role"])) {
     if (!empty($_SESSION) && $_SESSION['role'] == "admin") {
     ?>
         <div class="container add-boarding">
-            <a class="btn btn-warning" href="php/addbh.php" class="text-white">Add Boarding House</a>
+            <a class="btn btn-warning" href="php/addbh.php" class="text-white">Add Rooms</a>
         </div>
     <?php
     }
