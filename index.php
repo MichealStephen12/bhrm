@@ -18,160 +18,223 @@ if(!empty($_SESSION["uname"]) && !empty($_SESSION["role"])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maranding Boarding House Center</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body {
-            background-image: url('images/pxfuel.jpg');
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
 
-        .navbar {
-            background-color: #a9a9a9;
-        }
-
-        .navbar-brand img {
-            width: 80px;
-            height: 80px;
-        }
-
-        .nav-link {
-            color: #fff !important;
-        }
-
-        .btn-primary {
-            background-color: #2bb2b7;
-            border-color: #2bb2b7;
-        }
-
-        .content {
-            color: #fff;
-            margin-top: 50px;
-        }
-
-        .add-boarding {
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-
-        .row {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-        }
-
-        .col-md-4 {
-            margin-bottom: 20px;
-            flex: 0 0 calc(33.333% - 20px); /* 33.333% width minus margin */
-            max-width: calc(33.333% - 20px); /* 33.333% width minus margin */
-        }
-
-        .boarding-house-card {
-            background-color: #a9a9a9;
-            color: #fff;
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 20px;
-            height: 100%;
-        }
-
-        .boarding-house-card img {
-            width: 100%;
-            border-radius: 20px;
-            margin-bottom: 10px;
-        }
-
-        .boarding-house-card h5,
-        .boarding-house-card p {
-            margin-bottom: 10px;
-        }
-    </style>
+    <title>Document</title>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-0">
-        <a class="navbar-brand" href="#">
-            <img src="images/logo.png" alt="Logo">
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">About Us</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
-                </li>
-                <?php
-                if ($_SESSION == true) {
-                    echo '<a class="btn btn-warning" href="php/logout.php">Logout</a>';
-                } else {
-                    echo '<a class="btn btn-warning" href="php/login.php">Login</a>';
-                }
-                ?>
+
+    <section class="section1">
+        <nav>
+            <img src="images/logo.png" width="80" height="80" alt="">
+            <ul>
+                <li><a href="">Home</a></li>
+                <li><a href="">About us</a></li>
+                <li><a href="">Blog</a></li>
+                <li><a href="">Contact</a></li>
             </ul>
+
+            <?php  if ($_SESSION == true){
+                    echo '
+                    <a class="btn" href="php/logout.php"><button>Logout</button></a>';
+                }if($_SESSION == false){
+                    echo '<a class="btn" href="php/login.php"><button>Login</button></a>';
+                }
+                
+                ?>
+        </nav>
+
+        <div class="content">
+            <h1> Welcome to Maranding Boarding House Center
+                <?php if(empty($_SESSION)){echo '';} else {echo $fetch['fname'];}?>
+            </h1>
+            <p>where we show you the best boarding house around Maranding <br>
+                please select your desired borading house and have an
+                amazing experience and <br> chill moments ahead.
+            </p>
         </div>
-    </nav>
 
-    <div class="container content">
-        <h1>Welcome to Maranding Boarding House Center <?php if (!empty($_SESSION)) {
-                                                            echo $fetch['fname'];
-                                                        } ?></h1>
-        <p>Where we show you the best boarding houses around Maranding. Please select your desired boarding house and
-            have an amazing experience and chill moments ahead.</p>
-    </div>
+        <div class="breaker"></div>
 
-    <?php
-    if (!empty($_SESSION) && $_SESSION['role'] == "admin") {
-    ?>
-    <div class="container add-boarding">
-        <a class="btn btn-warning" href="php/addbh.php" class="text-white">Add Boarding House</a>
-    </div>
-    <?php
-    }
-    ?>
-
-
-    <div class="container">
-        <div class="row">
-            <?php
-            $query = "SELECT * FROM boardinghouses";
-            $result = mysqli_query($conn, $query);
-            while ($fetch = mysqli_fetch_assoc($result)) {
-                $id = $fetch['id'];
+        <?php 
+            
+            if($_SESSION == true){
+                if($_SESSION['role'] == "admin"){
             ?>
-            <div class="col-md-4">
-                <div class="boarding-house-card">
-                    <img src="<?php echo $fetch["image"]; ?>" alt="Boarding House">
-                    <h5>Name: <?php echo $fetch["hname"]; ?></h5>
-                    <p>Address: <?php echo $fetch["haddress"]; ?></p>
-                    <p>Availability: <?php echo $fetch["status"]; ?></p>
-                    <p>Price: P <?php echo $fetch["price"]; ?></p>
-                    <a href="boardinghouse.php?id=<?php echo $id; ?>" class="btn btn-warning">Book Now!</a>
+            <div class="add-boarding">
+                <div>
+                    <a href="php/addbh.php">Add Boarding House</a>
                 </div>
             </div>
+
+        <?php }}?>
+
+        <div class="boardinghouse">
             <?php
-            }
+            if(empty($_SESSION) || $_SESSION['role'] == 'user' || $_SESSION['role'] == 'admin' || $_SESSION['role'] == 'landlord'){
+                $query = "select * from boardinghouses";
+                $result = mysqli_query($conn, $query);
+                while ($fetch = mysqli_fetch_assoc($result)){
+                $id = $fetch['id'];
             ?>
+            <div class="col">
+                <img src="<?php echo $fetch["image"]?>" alt="">
+                <h1>Name:<?php echo $fetch["hname"]?></h1>
+                <p>Address:<?php echo $fetch["haddress"]?></p>
+                <p>Availability:<?php echo $fetch["status"]?></p>
+                <p>Price: P <?php echo $fetch["price"]?></p>
+                <a href="boardinghouse.php?id=<?php echo $id;?>"><button id="btn">Book Now!</button></a>
+            </div>
+            <?php  }} ?>
         </div>
+    </section>
+
+    <div class="footer">
+        <p>Copyright ©2024 All rights reserved | This template is made with by BHRM Devs</p>
     </div>
 
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            font-family: sans-serif;
 
+        }
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        a {
+            color: white;
+            cursor: pointer;
+        }
+
+        .section1 {
+            height: 97vh;
+            background-image: url(images/pxfuel.jpg);
+            background-size: cover;
+
+        }
+
+        .breaker {
+            height: 35px;
+        }
+
+        nav {
+            height: 70px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background-color: black;
+            top: 0;
+            position: sticky;
+        }
+
+        nav .btn {
+            place-content: center;
+            cursor: pointer;
+        }
+
+        nav button {
+            background-color: rgb(21, 157, 219);
+            color: white;
+            border: none;
+            padding: 15px;
+            width: 110px;
+        }
+
+        ul {
+            display: flex;
+            padding: 20px;
+            justify-content: center;
+        }
+
+        li {
+            padding-left: 30px;
+            list-style: none;
+            font-size: 24px;
+        }
+
+        li:first-child {
+            padding-left: 0;
+        }
+
+        .content {
+            height: 250px;
+            place-content: center;
+            text-align: center;
+            margin-left: 150px;
+            margin-right: 150px;
+            color: white;
+            border-radius: 30px;
+        }
+
+        .content h1 {
+            padding: 20px;
+        }
+
+        .add-boarding{
+            height: 50px;
+
+            margin: 0px 50px 10px 180px;
+            background-color: rgb(21, 157, 219);
+            color: white;
+            border: none;
+            padding: 15px;
+            width: 190px;
+            text-align: center;
+            border-radius: 20px
+        }
+
+        .boardinghouse {
+            height: 500px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-left: 150px;
+            margin-right: 150px;
+            background-color: rgb(0, 0, 0);
+            border-radius: 30px;
+        }
+
+        .boardinghouse p {
+            padding-top: 3px;
+            padding-bottom: 3px;
+        }
+
+        .boardinghouse button {
+            background-color: rgb(21, 157, 219);
+            color: white;
+            border: none;
+            padding: 15px;
+            width: 110px;
+            margin-top: 8px;
+        }
+
+        .col {
+            padding: 30px;
+            border: 1px solid white;
+            border-radius: 20px;
+
+            color: white;
+        }
+
+        .col img {
+            place-content: center;
+            width: 100%;
+        }
+
+        .footer {
+            place-content: center;
+            text-align: center;
+            height: 35px;
+            background-color: black;
+            color: white;
+
+        }
+
+       
+    </style>
+
 </body>
 
 </html>

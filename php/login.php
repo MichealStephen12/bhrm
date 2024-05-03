@@ -1,118 +1,135 @@
-<?php
+<!-- <?php
 require 'connection.php';
 
-$errors = array(); // Initialize the errors array
-
-if (!empty($_SESSION['uname']) && !empty($_SESSION['role'])) {
+if(!empty($_SESSION['uname']) && !empty($_SESSION['role'])){
     header("Location: ../index.php");
-    exit;
 }
 
-if (isset($_POST['submit'])) {
+
+if(isset($_POST['submit'])){
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    if (empty($email) && empty($password)) {
-        array_push($errors, "Missing all fields");
-    } elseif (empty($email)) {
-        array_push($errors, "Missing Email");
-    } elseif (empty($password)) {
-        array_push($errors, "Missing Password");
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        array_push($errors, "Email is not valid.");
+    $errors = array();
+    
+    if(empty($email) && empty($password)){
+        array_push($errors,"Missing all fields");
+    }elseif(empty($email)){
+        array_push($errors,"Missing Email");
+    }elseif(empty($password)){
+        array_push($errors,"Missing Password");
+    }elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+        array_push($errors,"Email is not valid.");
     }
 
     $query = "SELECT * FROM `users` WHERE uname = '$email' and pass = '$password'";
     $result = mysqli_query($conn, $query);
     $row = mysqli_fetch_assoc($result);
 
-    if (mysqli_num_rows($result)) {
-        $role = $row['role'];
-
-        if ($role == 'admin') {
-            $_SESSION["uname"] = $row['uname'];
-            $_SESSION["role"] = $row["role"];
-            header("Location: /bhrm-new-main/index.php");
-            exit;
-        } elseif ($role == 'user') {
-            $_SESSION["uname"] = $row['uname'];
-            $_SESSION["role"] = $row["role"];
-            header("Location: /bhrm-new-main/index.php");
-            exit;
-        } elseif ($role == 'landlord') {
-            $_SESSION["uname"] = $row['uname'];
-            $_SESSION["role"] = $row["role"];
-            header("Location: /bhrm-new-main/landlord.php");
-            exit;
+    if(count($errors) > 0){
+        foreach ($errors as $error){
+            echo "<div>$error</div>";
         }
-    } else {
-        array_push($errors, "Account is not found.");
+    }if(mysqli_num_rows($result)){
+        $role = $row['role'];
+        if($role == 'admin'){
+            $_SESSION["uname"] = $row['uname'];
+            $_SESSION["role"] = $row["role"];
+            header("Location: /bhrm layout/index.php");
+        }
+        if($role == 'user'){
+            $_SESSION["uname"] = $row['uname'];
+            $_SESSION["role"] = $row["role"];
+            header("Location: /bhrm layout/index.php");
+        }
+        if($role == 'landlord'){
+            $_SESSION["uname"] = $row['uname'];
+            $_SESSION["role"] = $row["role"];
+            header("Location: /bhrm layout/landlord.php");
+        }
+    }else{
+        echo "Account is not found.";
     }
 }
-?>
+?> -->
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>LOGIN</title>
-    <link rel="icon" type="image/x-icon" href="images/logo.png">
-    <link rel="stylesheet" href="login.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
 <body>
-    <!-- Navbar -->
-    <!-- Login Form -->
-    <div class="container-fluid">
-        <div class="row" style="padding-top: 10%;">
-            <div class="col-md-4"></div>
-            <div class="col-md-4" style="text-align: center; background-color: #a9a9a9; border-radius: 20px; padding: 10px;">
-                <div class="row">
-                    <div class="col-md-12" style="padding-bottom: 15px;">
-                    <img src="../images/logo.png" height="100px">
-                    </div>
-                    <div class="col-md-12">
-                        <span style="font-weight: 100; font-size: 17px;">Login To Your Account</span>
-                    </div>
-                    <div class="col-md-12">
-                        <form method="POST" action="login.php">
-                            <div class="row">
-                                <div class="col-md-12" style="text-align: left; font-size: 14px; font-weight: 200; padding: 20px 20px 10px 20px;">
-                                    <label>Email</label>
-                                    <input type="text" name="email" placeholder="Email" class="form-control" required>
-                                </div>
-                                <div class="col-md-12" style="text-align: left; font-size: 14px; font-weight: 200; padding: 10px 20px 10px 20px;">
-                                    <label>Password</label>
-                                    <input type="password" name="password" placeholder="Password" class="form-control" required>
-                                </div>
-                                <div class="col-md-12" style="text-align: center; font-size: 14px; font-weight: 200; padding: 0px 20px 10px 20px;">
-                                    <button type="submit" class="btn btn-warning" name="submit">Sign in now</button>
-                                </div>
-                                <div class="col-md-12" style="text-align: center; font-size: 14px; font-weight: 200; padding: 10px 20px 10px 20px;">
-                                    <div class="row">
-                                        <div class="col-md-6" style="text-align: left; font-size: 13px; font-weight: 100;">
-                                            <a href="signup.php" style="text-decoration: none; color: black;">Account? Register Now</a>
-                                        </div>
-                                        <div class="col-md-6" style="text-align: right; font-size: 13px; font-weight: 100;">
-                                            <a href="forgot.html" style="text-decoration: none; color: black;">Forgot Password</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                        <?php 
-                        if (count($errors) > 0) {
-                            foreach ($errors as $error) {
-                                echo "<p style='color: red; font-size: 14px; font-weight: 200; padding: 10px;'>$error</p>";
-                            }
-                        }
-                        ?>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4"></div>
-        </div>
+
+    <div class="container">
+        <form method="post">
+            <h2>Login</h2><br>
+            <label for="">Email:</label><br>
+            <input type="email" name="email" placeholder ="Enter Here.."><br><br>
+            <label for="">Password:</label><br>
+            <input type="password"  name="password" placeholder ="Enter Here.."><br><br>
+            <input type="submit" name="submit" value="Submit"><br><br>
+            <p>No account? register <a href="signup.php">>here<</a></p>
+        </form>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+
+    
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+            text-decoration: none;
+        }
+
+        .container{
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        form{
+            border: 1px solid black;
+            background-color: rgb(221, 221, 221);
+            border-radius: 5px; 
+            padding: 20px;
+            box-shadow: 10px 10px 1px rgba(0, 0, 0, 0.1); 
+            font-size: 20px;
+            width: 300px;
+        }form h2{
+            text-align: center;
+        }form a{
+            color: black;
+        }input[type=email]{
+            width: 200px;
+            padding: 10px;
+            border: 1px solid #ccc; 
+            border-radius: 5px; 
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); 
+            font-size: 16px; 
+        }input[type=password]{
+            width: 200px;
+            padding: 10px;
+            border: 1px solid #ccc; 
+            border-radius: 5px; 
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); 
+            font-size: 16px; 
+        }input[type=submit]{
+            background-color: rgb(52, 133, 255);
+            padding: 10px;
+            color: white;
+            border: 1px solid #ccc; 
+            border-radius: 5px; 
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); 
+            font-size: 16px; 
+            
+        }
+
+    </style>
 </body>
 </html>

@@ -9,6 +9,7 @@ if(!empty($_SESSION["uname"]) && !empty($_SESSION["role"])){
         $result = mysqli_query($conn, $query);
         $fetch = mysqli_fetch_assoc($result);   
     }
+    
 }else{
     header('location: index.php');
 }
@@ -30,16 +31,17 @@ if(!empty($_SESSION["uname"]) && !empty($_SESSION["role"])){
             <img src="images/logo.png" width="80" height="80" alt="">
             <ul>
                 <li><a href="">Home</a></li>
-                <li><a href="">Rooms</a></li>
                 <li><a href="">About Dodge Boarding House</a></li>
+                <li><a href="">Rooms</a></li>
+                <li><a href="">Blog</a></li>
                 <li><a href="">Contact</a></li>
                 
             </ul>
-            <a class="btn" href="index.php"><button>Back</button></a>
+            <a class="btn" href="index.php"><button>Back</button></a>';
         </nav>
 
-        <div class="breaker"></div>
-
+    <div class="breaker"></div>
+        
         <div class="content2">
             <h1>Welcome to
                 <?php echo $fetch["hname"]?>
@@ -47,68 +49,81 @@ if(!empty($_SESSION["uname"]) && !empty($_SESSION["role"])){
             <img src="<?php echo $fetch["image"]?>" width="1000" alt="">
         </div>
 
-        <div class="breaker"></div>
-
         <div class="description">
-            <p> Introducing Azzians Place: The Epitome of Comfort and Convenience in Maranding, Lala, Lanao del Norte </p>
-            <p>Located in the serene town of Maranding, Lala, Lanao del Norte, Azzians Place stands as the premier boarding house, offering an unparalleled living experience for students and professionals alike.</p>
-            <p>At Azzians Place, we understand the importance of a comfortable and conducive living environment. Our spacious and well-appointed rooms provide a haven for relaxation and productivity. Each room is thoughtfully designed with modern furnishings, ensuring a cozy and inviting atmosphere.</p>
+            <p>
+                <?php echo $fetch["description"]?>
+            </p>
         </div>
-
-        <div class="breaker"></div>
 
         <div class="rooms">
             <h1>Rooms</h1>
             <div class="roomcontent">
-                <div class="col">
-                    <h1>Room 1</h1>
-                    <img src="beds/dfghdfh.jpg" alt="">
-                    <p>Price: P 1000</p>
-                    <p>Amenities: Wifi And Cr</p>
-                    <p>Beds: Only 1 Single Bed</p>
-                    <a href="book-in.php"><button>Book now</button></a>
-                </div>
-                <div class="col">
-                    <h1>Room 2</h1>
-                    <img src="beds/drtd.jpg" alt="">
-                    <p>Price: P 1000</p>
-                    <p>Amenities: Wifi And Cr</p>
-                    <p>Beds: Only 1 Single Bed</p>
-                    <a href="book-in.php"><button>Book now</button></a>
-                </div>
-                <div class="col">
-                    <h1>Room 3</h1>
-                    <img src="beds/sdfghdsf.jpg" alt="">
-                    <p>Price: P 1000</p>
-                    <p>Amenities: Wifi And Cr</p>
-                    <p>Beds: Only 1 Single Bed</p>
-                    <a href="book-in.php"><button>Book now</button></a>
-                </div>
-                <div class="col">
-                    <h1>Room 4</h1>
-                    <img src="beds/sgsdgs.jpg" alt="">
-                    <p>Price: P 1000</p>
-                    <p>Amenities: Wifi And Cr</p>
-                    <p>Beds: Only 1 Single Bed</p>
-                    <a href="book-in.php"><button>Book now</button></a>
-                </div>
+                <img src="<?php echo $fetch["rooms"]?>" alt="">
+                <img src="<?php echo $fetch["rooms"]?>" alt="">
+                <img src="<?php echo $fetch["rooms"]?>" alt="">
+                <img src="<?php echo $fetch["rooms"]?>" alt="">
             </div>
         </div>
 
-        <div class="breaker"></div>
-
         <div class="description">
-            <p> Azzians Place: Serving Maranding with Excellence for 3 Years </p>
-            <p>For the past three years, Azzians Place has been a trusted and reliable provider of exceptional boarding services in the beautiful town of Maranding, Lala, Lanao del Norte. Since our establishment, we have been committed to delivering an unmatched living experience to our residents.</p>
-            <p>Throughout these years, Azzians Place has become a beloved and integral part of the Maranding community. We have built strong relationships with our residents, creating a warm and welcoming atmosphere that feels like home. Our dedication to customer satisfaction has earned us a stellar reputation as the go-to boarding house in the area.</p>
+            <p><?php echo $fetch["description"]?></p>
+
         </div>
+
+        <div class="aminities">
+            <h1>Aminities</h1>
+            <div class="aminitiescontent">
+                <img src="<?php echo $fetch["amenities"]?>" alt="">
+                <img src="<?php echo $fetch["amenities"]?>" alt="">
+                <img src="<?php echo $fetch["amenities"]?>" alt="">
+                <img src="<?php echo $fetch["amenities"]?>" alt="">
+            </div>
+        </div>
+
 
         <div class="breaker"></div>
 
-        <div class="footer">
-            <p>Copyright ©2024 All rights reserved | This template is made with by BHRM Devs</p>
-        </div>
 
+        <div class="bookingform">
+            <form class="form">
+                <p class="title">Dodge Boarding House</p>
+                <p class="message">Book now and enjoy!</p>
+                <div class="flex">
+                    <label>
+                        <input required="" placeholder="" type="text" class="input">
+                        <span>Firstname</span>
+                    </label>
+
+                    <label>
+                        <input required="" placeholder="" type="text" class="input">
+                        <span>Lastname</span>
+                    </label>
+                </div>
+
+                <label>
+                    <input required="" placeholder="" type="email" class="input">
+                    <span>Email</span>
+                </label>
+
+                <label>
+                    <span>Select a room (Gray means Un-avilable or occupied)</span><br><br>
+                    <input type="radio"> <label for="">Room 1</label>
+                    <input type="radio"> <label for="">Room 2</label>
+                    <input type="radio"> <label for="">Room 3</label>
+                    <input type="radio"> <label for="">Room 4</label>
+
+                </label>
+
+                <label>
+                    <input required="" placeholder="" type="text" class="input">
+                    <span>additional request about the room you have picked </span>
+                </label>
+                <div><button class="submit">Submit</button></div>
+                <p class="signin">your information will be monitored and safe after
+                    pressing submit button.
+                </p>
+            </form>
+        </div>
     </section>
 
     <style>
@@ -158,7 +173,7 @@ if(!empty($_SESSION["uname"]) && !empty($_SESSION["role"])){
         li {
             padding-left: 30px;
             list-style: none;
-            font-size: 13px;
+            font-size: 24px;
         }
 
         li:first-child {
@@ -166,22 +181,7 @@ if(!empty($_SESSION["uname"]) && !empty($_SESSION["role"])){
         }
 
         .section2 {
-            height: auto;
-            margin: 0 400px 0 400px;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            padding: 0 20px 0 20px;
-        }
-
-        .section2 >:first-child{
-            margin: -20px;
-        }.section2 >:last-child{
-            margin: -20px;
-        }
-
-        .breaker {
-            height: 50px;
-        }.section2 > :nth-child(0 of .breaker){
-            height: 72px;
+            height: 330vh;
         }
 
         .content2 {
@@ -190,32 +190,26 @@ if(!empty($_SESSION["uname"]) && !empty($_SESSION["role"])){
             justify-content: center;
             align-items: center;
             text-align: center;
-            height: 450px;
         }
+
         .content2 h1 {
-            padding: 10px;
-        }
-        .content2 img{
-            width: 50%;
+            padding: 25px;
         }
 
 
         .description {
-            height: 230px;
+            height: 280px;
             place-content: center;
-            text-align: justify;
-        }.section2 > :nth-child(2 of .description){
-            height: 250px;
-            place-content: center;
-            text-align: justify;
+            text-align: center;
         }
+
         .description p {
             padding: 10px;
             font-size: 19px;
         }
 
         .rooms {
-            height: 400px;
+            height: 495px;
         }
 
         .roomcontent {
@@ -223,36 +217,178 @@ if(!empty($_SESSION["uname"]) && !empty($_SESSION["role"])){
             justify-content: center;
         }
 
-        .roomcontent .col{
-            padding: 20px;
-            margin: 0 10px 0 10px ;
-            transition: 0.3s;
-            border: 1px solid black;
+        .roomcontent img {
             width: 100%;
-        }.roomcontent .col:hover{
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-        }
-
-        .roomcontent .col img{
-            padding: auto;
-            width:  200px;
-            height: 150px;
         }
 
         .rooms h1 {
             text-align: center;
-            padding: 10px;
+            padding: 20px;
         }
-    
 
-        .footer {
-            place-content: center;
+        .aminities {
+            height: 510px;
+        }
+
+        .aminitiescontent {
+            display: flex;
+            justify-content: center;
+        }
+
+        .aminities img {
+            width: 100%;
+        }
+
+        .aminities h1 {
             text-align: center;
-            height: 49px;
-            background-color: black;
-            color: white;
+            padding: 20px;
         }
 
+         
+        .bookingform {
+            height: 700px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form {
+            border: 1px solid black;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 550px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 20px;
+            position: relative;
+            font-size: 24px;
+        }
+
+        .title {
+            font-size: 28px;
+            color: royalblue;
+            font-weight: 600;
+            letter-spacing: -1px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding-left: 30px;
+        }
+
+        .title::before,
+        .title::after {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            left: 0px;
+            background-color: royalblue;
+        }
+
+        .title::before {
+            width: 18px;
+            height: 18px;
+            background-color: royalblue;
+        }
+
+        .title::after {
+            width: 18px;
+            height: 18px;
+            animation: pulse 1s linear infinite;
+        }
+
+        .message,
+        .signin {
+            color: rgba(88, 87, 87, 0.822);
+            font-size: 14px;
+        }
+
+        .signin {
+            text-align: center;
+        }
+
+        .signin a {
+            color: royalblue;
+        }
+
+        .signin a:hover {
+            text-decoration: underline royalblue;
+        }
+
+        .flex {
+            display: flex;
+            width: 100%;
+            gap: 6px;
+        }
+
+        .form label {
+            position: relative;
+        }
+
+        .form label .input {
+            width: 100%;
+            padding: 10px 10px 20px 10px;
+            outline: 0;
+            border: 1px solid rgba(105, 105, 105, 0.397);
+            border-radius: 10px;
+            font-size: 24px;
+        }
+
+        .form label .input+span {
+            position: absolute;
+            left: 10px;
+            top: 15px;
+            color: grey;
+            font-size: 0.9em;
+            cursor: text;
+            transition: 0.3s ease;
+        }
+
+        .form label .input:placeholder-shown+span {
+            top: 15px;
+            font-size: 0.9em;
+        }
+
+        .form label .input:focus+span,
+        .form label .input:valid+span {
+            top: 30px;
+            font-size: 0.7em;
+            font-weight: 600;
+        }
+
+        .form label .input:valid+span {
+            color: green;
+        }
+
+        .submit {
+            border: none;
+            outline: none;
+            background-color: royalblue;
+            padding: 10px;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 16px;
+            transform: .3s ease;
+            width: 150px;
+        }
+
+        .submit:hover {
+            background-color: rgb(56, 90, 194);
+        }
+
+        @keyframes pulse {
+            from {
+                transform: scale(0.9);
+                opacity: 1;
+            }
+
+            to {
+                transform: scale(1.8);
+                opacity: 0;
+            }
+        }
     </style>
 
 </body>
