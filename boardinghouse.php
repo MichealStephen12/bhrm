@@ -13,7 +13,6 @@ if(!empty($_SESSION["uname"]) && !empty($_SESSION["role"])){
     header('location: index.php');
 }
 
-
 ?>
 
 
@@ -32,12 +31,9 @@ if(!empty($_SESSION["uname"]) && !empty($_SESSION["role"])){
             <ul>
                 <li><a href="">Home</a></li>
                 <li><a href="">Rooms</a></li>
-                <li><a href="">About</a></li>
-                <?php  
-                    if (!empty($_SESSION["uname"]) && !empty($_SESSION["role"]) && $_SESSION['role'] == 'landlord'){
-                        echo '<li><a href="reservation.php">View Reservation</a></li>';
-                    }
-                ?>
+                <li><a href="">About Dodge Boarding House</a></li>
+                <li><a href="">Contact</a></li>
+                
             </ul>
             <a class="btn" href="index.php"><button>Back</button></a>
         </nav>
@@ -46,62 +42,65 @@ if(!empty($_SESSION["uname"]) && !empty($_SESSION["role"])){
 
         <div class="content2">
             <h1>Welcome to
-                Aziannas Place
+                <?php echo $fetch["hname"]?>
             </h1>
-            <img src="images/al.jpg" width="1000" alt="">
+            <img src="<?php echo $fetch["image"]?>" width="1000" alt="">
         </div>
 
         <div class="breaker"></div>
 
         <div class="description">
-            <p> Introducing Aziannas Place: The Epitome of Comfort and Convenience in Maranding, Lala, Lanao del Norte </p>
-            <p>Located in the serene town of Maranding, Lala, Lanao del Norte, Aziannas Place stands as the premier boarding house, offering an unparalleled living experience for students and professionals alike.</p>
-            <p>At Aziannas Place, we understand the importance of a comfortable and conducive living environment. Our spacious and well-appointed rooms provide a haven for relaxation and productivity. Each room is thoughtfully designed with modern furnishings, ensuring a cozy and inviting atmosphere.</p>
+            <p> Introducing Azzians Place: The Epitome of Comfort and Convenience in Maranding, Lala, Lanao del Norte </p>
+            <p>Located in the serene town of Maranding, Lala, Lanao del Norte, Azzians Place stands as the premier boarding house, offering an unparalleled living experience for students and professionals alike.</p>
+            <p>At Azzians Place, we understand the importance of a comfortable and conducive living environment. Our spacious and well-appointed rooms provide a haven for relaxation and productivity. Each room is thoughtfully designed with modern furnishings, ensuring a cozy and inviting atmosphere.</p>
         </div>
 
         <div class="breaker"></div>
 
-
         <div class="rooms">
             <h1>Rooms</h1>
-            <?php 
-            if(!empty($_SESSION["uname"]) && !empty($_SESSION["role"]) && $_SESSION["role"] == "landlord"){
-                echo "<div class='addroom'><a href='php/addroom.php'><button>Add Rooms</button></a></div>";
-            }
-            ?>
-
             <div class="roomcontent">
-            <?php 
-            $query = "SELECT * FROM rooms";
-            $result = mysqli_query($conn, $query);
-            while ($fetch = mysqli_fetch_assoc($result)) {
-                $id = $fetch['id'];
-            ?>
                 <div class="col">
-                    <h1>Room No: <?php echo $fetch['room-no']?></h1>
-                    <img src="<?php echo $fetch['image']?>" alt="">
-                    <p>Price: <?php echo $fetch['price']?></p>
-                    <p>Amenities: <?php echo $fetch['amenities']?></p>
-                    <?php if(!empty($_SESSION["uname"]) && !empty($_SESSION["role"] && $_SESSION["role"] == "landlord")):
-                    ?>
-                    <a href='php/addroom.php?rupdate=<?php echo $id;?>'><button>Update</button></a>
-                    <a href='php/function.php?rdelete=<?php echo $id;?>'><button>Delete</button></a>
-                    <?php  else: ?>
-                    <a href='book-in.php?id=<?php echo $id;?>'><button>Book Now!</button></a>
-                    <?php endif; ?>
+                    <h1>Room 1</h1>
+                    <img src="beds/dfghdfh.jpg" alt="">
+                    <p>Price: P 1000</p>
+                    <p>Amenities: Wifi And Cr</p>
+                    <p>Beds: Only 1 Single Bed</p>
+                    <a href="book-in.php"><button>Book now</button></a>
                 </div>
-            <?php }?>
-            
-
+                <div class="col">
+                    <h1>Room 2</h1>
+                    <img src="beds/drtd.jpg" alt="">
+                    <p>Price: P 1000</p>
+                    <p>Amenities: Wifi And Cr</p>
+                    <p>Beds: Only 1 Single Bed</p>
+                    <a href="book-in.php"><button>Book now</button></a>
+                </div>
+                <div class="col">
+                    <h1>Room 3</h1>
+                    <img src="beds/sdfghdsf.jpg" alt="">
+                    <p>Price: P 1000</p>
+                    <p>Amenities: Wifi And Cr</p>
+                    <p>Beds: Only 1 Single Bed</p>
+                    <a href="book-in.php"><button>Book now</button></a>
+                </div>
+                <div class="col">
+                    <h1>Room 4</h1>
+                    <img src="beds/sgsdgs.jpg" alt="">
+                    <p>Price: P 1000</p>
+                    <p>Amenities: Wifi And Cr</p>
+                    <p>Beds: Only 1 Single Bed</p>
+                    <a href="book-in.php"><button>Book now</button></a>
+                </div>
             </div>
         </div>
 
         <div class="breaker"></div>
 
         <div class="description">
-            <p> Aziannas Place: Serving Maranding with Excellence for 3 Years </p>
-            <p>For the past three years, Aziannas Place has been a trusted and reliable provider of exceptional boarding services in the beautiful town of Maranding, Lala, Lanao del Norte. Since our establishment, we have been committed to delivering an unmatched living experience to our residents.</p>
-            <p>Throughout these years, Aziannas Place has become a beloved and integral part of the Maranding community. We have built strong relationships with our residents, creating a warm and welcoming atmosphere that feels like home. Our dedication to customer satisfaction has earned us a stellar reputation as the go-to boarding house in the area.</p>
+            <p> Azzians Place: Serving Maranding with Excellence for 3 Years </p>
+            <p>For the past three years, Azzians Place has been a trusted and reliable provider of exceptional boarding services in the beautiful town of Maranding, Lala, Lanao del Norte. Since our establishment, we have been committed to delivering an unmatched living experience to our residents.</p>
+            <p>Throughout these years, Azzians Place has become a beloved and integral part of the Maranding community. We have built strong relationships with our residents, creating a warm and welcoming atmosphere that feels like home. Our dedication to customer satisfaction has earned us a stellar reputation as the go-to boarding house in the area.</p>
         </div>
 
         <div class="breaker"></div>
@@ -168,6 +167,7 @@ if(!empty($_SESSION["uname"]) && !empty($_SESSION["role"])){
 
         .section2 {
             height: auto;
+            margin: 0 400px 0 400px;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
             padding: 0 20px 0 20px;
         }
@@ -190,13 +190,13 @@ if(!empty($_SESSION["uname"]) && !empty($_SESSION["role"])){
             justify-content: center;
             align-items: center;
             text-align: center;
-            height: 600px;
+            height: 450px;
         }
         .content2 h1 {
             padding: 10px;
         }
         .content2 img{
-            width: 40%;
+            width: 50%;
         }
 
 
@@ -228,7 +228,7 @@ if(!empty($_SESSION["uname"]) && !empty($_SESSION["role"])){
             margin: 0 10px 0 10px ;
             transition: 0.3s;
             border: 1px solid black;
-            width: 300px;
+            width: 100%;
         }.roomcontent .col:hover{
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         }
@@ -242,11 +242,6 @@ if(!empty($_SESSION["uname"]) && !empty($_SESSION["role"])){
         .rooms h1 {
             text-align: center;
             padding: 10px;
-        }
-
-        .addroom{
-            padding: 20px 0 20px 20px;
-            margin-left: 150px;
         }
     
 

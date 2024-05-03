@@ -8,16 +8,6 @@ if(!empty($_SESSION["uname"]) && !empty($_SESSION["role"])){
 }
 
 
-// delete rooms
-if(isset($_GET['rdelete'])){
-    $id = $_GET['rdelete'];
-    $query = "DELETE FROM rooms WHERE id = $id";
-    $result = mysqli_query($conn, $query);
-    if($result){
-        header('Location: ../boardinghouse.php');
-    }
-}
-
 if(isset($_GET['delete'])){
     $id = $_GET['delete'];
 
@@ -28,7 +18,7 @@ if(isset($_GET['delete'])){
     }
 }
 
-$data = ['id' => '','owner'=>'', 'hname' => '', 'haddress' => '', 'image' => '', 'price' => '', 'status'=>'', 'amenities'=>'','description' => ''];
+$data = ['id' => '','uname'=>'', 'hname' => '', 'haddress' => '', 'image' => '', 'price' => '', 'status'=>'', 'amenities'=>'','description' => ''];
 
 if(isset($_GET['edit'])){
     $id = $_GET['edit'];
@@ -40,9 +30,13 @@ if(isset($_GET['edit'])){
 
 if(isset($_POST['update'])){
     $id = $_GET['edit'];
-    $owner = $_POST['owner'];    
     $hname = $_POST['hname'];
     $haddress = $_POST['haddress'];
+    $price = $_POST['price'];
+    $status = $_POST['status'];
+    $owner = $_POST['owner'];
+    $amenities = $_POST['amenities'];
+    $description = $_POST['description'];
 
     $file = $_FILES['image'];
     
@@ -74,7 +68,7 @@ if(isset($_POST['update'])){
         echo "you cannot upload this type of file";
     }
 
-    $query = "UPDATE `boardinghouses` SET `id`= $id,`owner`='$owner',`hname`='$hname',`haddress`='$haddress',`image`= 'images/$fileNameNew'  WHERE id = $id";
+    $query = "UPDATE `boardinghouses` SET `id`= $id,`hname`='$hname',`haddress`='$haddress',`image`='images/$fileNameNew',`price`='$price',`status`='$status', `amenities`='$amenities',`description`='$description'  WHERE id = $id";
     mysqli_query($conn, $query);
 
     header("location: ../index.php");
@@ -94,20 +88,28 @@ if(isset($_POST['update'])){
         <form action="" method="post" enctype="multipart/form-data">
             <h2>Add boarding House</h2><br>
             <label for=""> House Owner: </label>
-            <input type="text" name="owner" value="<?php echo $data['owner']; ?>"  placeholder="enter here.."><br><br>
+            <input type="text" name="owner" value="<?php echo $data['uname']; ?>" placeholder="enter here.."><br><br>
             <label for=""> House Name: </label>
             <input type="text" name="hname" value="<?php echo $data['hname']; ?>" placeholder="enter here.."><br><br>
             <label for=""> House Address: </label>
             <input type="text" name="haddress" value="<?php echo $data['haddress']; ?>" placeholder="enter here.."><br><br>
             <?php if($data['id'] != '') :  ?>
             <div>
-                <img src="../<?php echo $data['image'];?>" height="100" width="100" alt="">
+                <img src="../<?php echo $data['image'];?>" value="<?php echo $data['image'];?>" height="100" width="100" alt="">
             </div>
             <br>
             <?php endif; ?>
             <label for=""> Image: </label>
-            <input type="file" name="image" value="<?php echo $data['image'];?>" placeholder="enter here.."><br><br>
-
+            <input type="file" name="image" placeholder="enter here.."><br><br>
+            <label for=""> Price: </label>
+            <input type="text" name="price" value="<?php echo $data['price']; ?>" placeholder="enter here.."><br><br>
+            <label for=""> Status: </label>
+            <input type="text" name="status" value="<?php echo $data['status']; ?>" placeholder="enter here.."><br><br>
+            <label for=""> Amenities: </label>
+            <input type="text" name="amenities" value="<?php echo $data['amenities']; ?>" placeholder="enter here.."><br><br>
+            <label for=""> Description: </label>
+            <input type="text" name="description" value="<?php echo $data['description']; ?>" placeholder="enter here.."><br><br>
+            
             <?php if($data['id'] == ''): ?>
             <input type="submit" name="submit" value="Submit">
             <?php else: ?>
