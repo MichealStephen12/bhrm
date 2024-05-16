@@ -96,7 +96,8 @@ if(!empty($_SESSION["uname"]) && !empty($_SESSION["role"])){
                     if (!empty($_SESSION["uname"]) && !empty($_SESSION["role"]) && $_SESSION['role'] == 'landlord'){
                         echo '<li class="nav-item"><a class="nav-link" href="reservation.php">View Reservation</a></li>';
                         echo '<li class="nav-item"><a class="btn btn-warning" href="php/logout.php">Logout</a></li>';
-                    }else{
+                    }else if (!empty($_SESSION["uname"]) && !empty($_SESSION["role"]) && $_SESSION['role'] == 'user'){
+                        echo '<li class="nav-item"><a class="nav-link" href="reservation.php">View Reservation</a></li>';
                         echo '<a class="btn btn-warning" href="index.php">Back</a>';
                     }
                 ?>
@@ -148,7 +149,7 @@ if(!empty($_SESSION["uname"]) && !empty($_SESSION["role"])){
                             <p class="card-text">Price: <?php echo $fetch['price']?></p>
                             <p class="card-text">Amenities: <?php echo $fetch['amenities']?></p>
                             <p class="card-text">Status: <?php echo $fetch['status']?></p>
-                            <?php if(!empty($_SESSION["uname"]) && !empty($_SESSION["role"] && $_SESSION["role"] == "landlord")):
+                            <?php if(!empty($_SESSION["uname"]) && !empty($_SESSION["role"]) && $_SESSION["role"] == "landlord"):
                             ?>
                                 <a href='php/addroom.php?rupdate=<?php echo $id;?>' class='btn btn-warning'>Update</a>
                                 <a href='php/function.php?rdelete=<?php echo $id;?>' class='btn btn-danger'>Delete</a>

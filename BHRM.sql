@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 02, 2024 at 03:55 PM
+-- Generation Time: May 16, 2024 at 05:51 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -40,7 +40,7 @@ CREATE TABLE `boardinghouses` (
 --
 
 INSERT INTO `boardinghouses` (`id`, `owner`, `hname`, `haddress`, `image`) VALUES
-(33, 'dodge@gmail.com', 'Aziannas Place', 'Maranding', 'images/asfafs.jpg'),
+(33, 'dodge@gmail.com', 'Aziannas Place', 'Maranding', 'images/al.jpg'),
 (59, '', 'asdd', 'asda', 'images/sdfghdsf.jpg');
 
 -- --------------------------------------------------------
@@ -60,8 +60,17 @@ CREATE TABLE `reservation` (
   `amenities` varchar(255) NOT NULL,
   `price` int(255) NOT NULL,
   `image` varchar(255) NOT NULL,
-  `status` varchar(255) NOT NULL
+  `status` varchar(255) NOT NULL,
+  `res_stat` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `reservation`
+--
+
+INSERT INTO `reservation` (`id`, `fname`, `lname`, `email`, `date_in`, `addons`, `room-no`, `amenities`, `price`, `image`, `status`, `res_stat`) VALUES
+(0, 'wat', 'wat', 'nailpots@gmail.com', '2024-05-31 00:00:00', 'lakad matatag', 1, 'secret', 100000, 'beds/dfghdfh.jpg', 'full', 'Approved'),
+(2, 'dodge', 'dodge', 'dodge@gmail.comn', '2024-05-31 00:00:00', 'asdasda', 2, 'bangko', 10000, 'images/sgsdgs.jpg', 'full', 'Rejected');
 
 -- --------------------------------------------------------
 
@@ -85,8 +94,9 @@ CREATE TABLE `rooms` (
 INSERT INTO `rooms` (`id`, `room-no`, `amenities`, `price`, `image`, `status`) VALUES
 (1, 1, 'secret', 100000, 'beds/dfghdfh.jpg', 'full'),
 (2, 2, 'secret', 100000, 'beds/drtd.jpg', 'available'),
-(3, 3, 'gsrgdrg', 100000, 'images/drtd.jpg', 'full'),
-(4, 4, 'fasfasf', 100000, 'images/sgsdgs.jpg', 'full');
+(3, 3, 'gsrgdrg', 100000, 'images/drtd.jpg', 'available'),
+(4, 4, 'fasfasf', 100000, 'images/sgsdgs.jpg', 'full'),
+(5, 6, 'bangko', 10000, 'images/sgsdgs.jpg', 'Maintenance');
 
 -- --------------------------------------------------------
 
@@ -155,13 +165,13 @@ ALTER TABLE `boardinghouses`
 -- AUTO_INCREMENT for table `reservation`
 --
 ALTER TABLE `reservation`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`

@@ -48,7 +48,7 @@ if (isset($_POST['submit'])) {
     header("location: ../boardinghouse.php");
 }
 
-$data = ['id' => '', 'room-no'=>'', 'amenities' => '', 'price' => '', 'image' => '', 'status'=>''];
+$data = ['id' => '', 'room-no' => '', 'amenities' => '', 'price' => '', 'image' => '', 'status'=>''];
 
 if(isset($_GET['rupdate'])){
     $id = $_GET['rupdate'];

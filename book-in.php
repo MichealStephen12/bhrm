@@ -25,8 +25,8 @@ if(isset($_POST['submit'])){
     $price = $fetch['price'];
     $status = $fetch['status'];
    
-    $query = "INSERT INTO `reservation` (`id`, `fname`, `lname`, `email`, `date_in`, `addons`, `room-no`, `amenities`, `price`, `image`, `status`) VALUES 
-                                        ('','$fname','$lname','$email','$datein','$addons','$roomno','$amenities','$price','$image','$status')";
+    $query = "INSERT INTO `reservation` (`id`, `fname`, `lname`, `email`, `date_in`, `addons`, `room-no`, `amenities`, `price`, `image`, `status`, `res_stat`) VALUES 
+                                        ('','$fname','$lname','$email','$datein','$addons','$roomno','$amenities','$price','$image','$status', 'Pending')";
     mysqli_query($conn, $query);
 
     header("location: thankyou.php");

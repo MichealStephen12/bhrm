@@ -27,7 +27,25 @@ if (isset($_GET['delete'])) {
     }
 }
 
+
+if (isset($_GET['approve'])) {
+    $id = $_GET['approve'];
+
+    $query = "UPDATE `reservation` SET `id`=$id, `res_stat` = 'Approved' WHERE id = $id";
+    $result = mysqli_query($conn, $query);
+    header('Location: ../reservation.php');
+}
+
+if (isset($_GET['reject'])) {
+    $id = $_GET['reject'];
+
+    $query = "UPDATE `reservation` SET `id`=$id, `res_stat` = 'Rejected' WHERE id = $id";
+    $result = mysqli_query($conn, $query);
+    header('Location: ../reservation.php');
+}
+
 $data = ['id' => '', 'owner' => '', 'hname' => '', 'haddress' => '', 'image' => '', 'price' => '', 'status' => '', 'amenities' => '', 'description' => ''];
+
 
 if (isset($_GET['edit'])) {
     $id = $_GET['edit'];

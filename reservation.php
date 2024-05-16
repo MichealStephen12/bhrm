@@ -59,9 +59,6 @@ if (!empty($_SESSION["uname"]) && !empty($_SESSION["role"])) {
                     <a class="nav-link" href="#">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Rooms</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="#">About</a>
                 </li>
                 <?php  
@@ -92,12 +89,20 @@ if (!empty($_SESSION["uname"]) && !empty($_SESSION["role"])) {
                         <th>Price</th>
                         <th>Image</th>
                         <th>Status</th>
-                        <th>Actions</th>
+                        <th>Reservation Status</th>
+                        <?php  
+                            if (!empty($_SESSION["uname"]) && !empty($_SESSION["role"]) && $_SESSION['role'] == 'landlord'){
+                                echo '<th>Actions</th>'; 
+                            }else{
+                                echo '';
+                            }
+                        ?>
+                        
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    if (empty($_SESSION) || $_SESSION['role'] == 'user' || $_SESSION['role'] == 'admin' || $_SESSION['role'] == 'landlord') {
+                    if (!empty($_SESSION) || $_SESSION['role'] == 'landlord') {
                         $query = "select * from reservation";
                         $result = mysqli_query($conn, $query);
                         while ($fetch = mysqli_fetch_assoc($result)) {
@@ -113,10 +118,16 @@ if (!empty($_SESSION["uname"]) && !empty($_SESSION["role"])) {
                                 <td><?php echo $fetch['price'] ?></td>
                                 <td><?php echo $fetch['image'] ?></td>
                                 <td><?php echo $fetch['status'] ?></td>
+                                <td><?php echo $fetch['res_stat'] ?></td>
+                                 
+                                <?php  
+                                    if (!empty($_SESSION["uname"]) && !empty($_SESSION["role"]) && $_SESSION['role'] == 'landlord'){
+                                ?>
                                 <td>
-                                    <a href="#"><button class="btn btn-warning">Update</button></a>
-                                    <a href="#"><button class="btn btn-danger">Delete</button></a>
+                                    <a href="php/function.php?approve=<?php echo $id;?>"><button class="btn btn-warning">Approve</button></a>
+                                    <a href="php/function.php?reject=<?php echo $id;?>"><button class="btn btn-danger">Reject</button></a>
                                 </td>
+                                <?php } ?>
                             </tr>
                     <?php
                         }
