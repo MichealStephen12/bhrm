@@ -169,11 +169,17 @@ if (!empty($_SESSION["uname"]) && !empty($_SESSION["role"])) {
                             <p>Owner: <?php echo $fetch["owner"] ?></p>
                             <p>Address: <?php echo $fetch["haddress"] ?></p>
                             <div class="btn-container">
-                                <?php if (!empty($_SESSION) && $_SESSION['role'] == 'admin' || !empty($_SESSION) && $_SESSION['role'] == 'landlord'): ?>
+                                <?php if (!empty($_SESSION) && $_SESSION['role'] == 'admin'): ?>
                                     <a href="php/function.php?edit=<?php echo $id; ?>"><button class="btn btn-warning">Update</button></a>
                                     <a href="php/function.php?delete=<?php echo $id; ?>"><button class="btn btn-warning">Delete</button></a>
                                 <?php else : ?>
                                     <a href="boardinghouse.php?id=<?php echo $id; ?>" class="btn btn-warning">More Details</a>
+                                <?php endif; ?>
+
+                                <?php if (!empty($_SESSION) && $_SESSION['role'] == 'landlord'): ?>
+                                    <a href="php/function.php?edit=<?php echo $id; ?>"><button class="btn btn-warning">Update</button></a>
+                                    <a href="php/function.php?delete=<?php echo $id; ?>"><button class="btn btn-warning">Delete</button></a>
+                                <?php else : ?>
                                 <?php endif; ?>
                             </div>
                         </div>
