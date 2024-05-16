@@ -132,9 +132,12 @@ if (!empty($_SESSION["uname"]) && !empty($_SESSION["role"])) {
     </nav>
 
     <div class="container content">
-        <h1>Welcome to Maranding Boarding House Center <?php if (!empty($_SESSION)) {
-                                                            echo $fetch['fname'];
-                                                        } ?></h1>
+        <h1>Welcome to Maranding Boarding House Center 
+        <?php if (!empty($_SESSION)) {
+            echo $fetch['fname'];
+        } 
+        ?>
+        </h1>
         <p>Where we show you the best boarding houses around Maranding. Please select your desired boarding house and
             have an amazing experience and chill moments ahead.</p>
     </div>
@@ -166,7 +169,7 @@ if (!empty($_SESSION["uname"]) && !empty($_SESSION["role"])) {
                             <p>Owner: <?php echo $fetch["owner"] ?></p>
                             <p>Address: <?php echo $fetch["haddress"] ?></p>
                             <div class="btn-container">
-                                <?php if (!empty($_SESSION) && $_SESSION['role'] == 'admin') : ?>
+                                <?php if (!empty($_SESSION) && $_SESSION['role'] == 'admin' || !empty($_SESSION) && $_SESSION['role'] == 'landlord'): ?>
                                     <a href="php/function.php?edit=<?php echo $id; ?>"><button class="btn btn-warning">Update</button></a>
                                     <a href="php/function.php?delete=<?php echo $id; ?>"><button class="btn btn-warning">Delete</button></a>
                                 <?php else : ?>
