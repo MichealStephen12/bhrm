@@ -116,7 +116,7 @@ if (!empty($_SESSION["uname"]) && !empty($_SESSION["role"])) {
                                 <td><?php echo $fetch['addons'] ?></td>
                                 <td><?php echo $fetch['amenities'] ?></td>
                                 <td><?php echo $fetch['price'] ?></td>
-                                <td><?php echo $fetch['image'] ?></td>
+                                <td><img src="<?php echo $fetch['image'] ?>"></td>
                                 <td><?php echo $fetch['status'] ?></td>
                                 <td><?php echo $fetch['res_stat'] ?></td>
                                  
