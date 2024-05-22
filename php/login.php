@@ -42,7 +42,7 @@ if (isset($_POST['submit'])) {
         } elseif ($role == 'landlord') {
             $_SESSION["uname"] = $row['uname'];
             $_SESSION["role"] = $row["role"];
-            header("Location: /bhrm-main/boardinghouse.php");
+            header("Location: /bhrm-main/index.php");
             exit;
         }
     } else {

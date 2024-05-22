@@ -21,11 +21,12 @@ if (!empty($_SESSION["uname"]) && !empty($_SESSION["role"])) {
     <title>DASHBOARD</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        body {
+       body {
             background-image: url('images/pxfuel.jpg');
-            background-size: cover;
+            background-size: cover; /* Ensure the background image covers the entire screen */
             background-repeat: no-repeat;
             background-position: center;
+            height: 100vh; /* Set the height of the body to 100% of the viewport height */
         }
 
         .navbar {
@@ -112,13 +113,13 @@ if (!empty($_SESSION["uname"]) && !empty($_SESSION["role"])) {
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Home</a>
+                    <a class="nav-link" href="index.php">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">About Us</a>
+                    <a class="nav-link" href="about.php">About Us</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
+                    <a class="nav-link" href="contact.php">Contact</a>
                 </li>
                 <?php
                 if ($_SESSION == true) {
@@ -132,9 +133,12 @@ if (!empty($_SESSION["uname"]) && !empty($_SESSION["role"])) {
     </nav>
 
     <div class="container content">
-        <h1>Welcome to Maranding Boarding House Center <?php if (!empty($_SESSION)) {
-                                                            echo $fetch['fname'];
-                                                        } ?></h1>
+        <h1>Welcome to Maranding Boarding House Center 
+        <?php if (!empty($_SESSION)) {
+            echo $fetch['fname'];
+        } 
+        ?>
+        </h1>
         <p>Where we show you the best boarding houses around Maranding. Please select your desired boarding house and
             have an amazing experience and chill moments ahead.</p>
     </div>
@@ -166,11 +170,17 @@ if (!empty($_SESSION["uname"]) && !empty($_SESSION["role"])) {
                             <p>Owner: <?php echo $fetch["owner"] ?></p>
                             <p>Address: <?php echo $fetch["haddress"] ?></p>
                             <div class="btn-container">
-                                <?php if (!empty($_SESSION) && $_SESSION['role'] == 'admin') : ?>
+                                <?php if (!empty($_SESSION) && $_SESSION['role'] == 'admin'): ?>
                                     <a href="php/function.php?edit=<?php echo $id; ?>"><button class="btn btn-warning">Update</button></a>
                                     <a href="php/function.php?delete=<?php echo $id; ?>"><button class="btn btn-warning">Delete</button></a>
                                 <?php else : ?>
                                     <a href="boardinghouse.php?id=<?php echo $id; ?>" class="btn btn-warning">More Details</a>
+                                <?php endif; ?>
+
+                                <?php if (!empty($_SESSION) && $_SESSION['role'] == 'landlord'): ?>
+                                    <a href="php/function.php?edit=<?php echo $id; ?>"><button class="btn btn-warning">Update</button></a>
+                                    <a href="php/function.php?delete=<?php echo $id; ?>"><button class="btn btn-warning">Delete</button></a>
+                                <?php else: ?>
                                 <?php endif; ?>
                             </div>
                         </div>
